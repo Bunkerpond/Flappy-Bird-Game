@@ -33,11 +33,13 @@ const VELOCITY = 200;
 let bird = null;
 let upperpipe = null; 
 let lowerpipe = null; 
+let pipeHoriztonalDistance = 0;
+
+
 const PipeVerticalDistanceRange = [150, 250];
-let PipeVerticalDistance = Phaser.Math.Between(...PipeVerticalDistanceRange);
-let PipeVerticalPosition = Phaser.Math.Between(0 + 20, config.height - 20 - PipeVerticalDistance);
 
 
+const PIPES_T0_RENDER = 4;
 
 const flapVelocity = 300; 
 const initialBirdPosition = {x: config.width/10, y:config.height/2, }
@@ -47,11 +49,18 @@ function create(){
   bird = this.physics.add.sprite(initialBirdPosition.x, initialBirdPosition.y, 'bird').setOrigin(0);//bird.body.gravity.y = 200; another way to do gravity
   bird.body.gravity.y = 400; 
 
-  upperpipe = this.add.sprite(400, PipeVerticalPosition, 'pipe').setOrigin(0,1); 
-  lowerpipe = this.add.sprite(400, upperpipe.y + PipeVerticalDistance, 'pipe').setOrigin(0,0); 
-
+  for (let i = 0; i < PIPES_T0_RENDER; i++){
+  pipeHoriztonalDistance += 400;
+  let PipeVerticalDistance = Phaser.Math.Between(...PipeVerticalDistanceRange);
+  let PipeVerticalPosition = Phaser.Math.Between(0 + 20, config.height - 20 - PipeVerticalDistance);
+  upperpipe = this.physics.add.sprite(pipeHoriztonalDistance, PipeVerticalPosition, 'pipe').setOrigin(0,1); 
+  lowerpipe = this.physics.add.sprite(pipeHoriztonalDistance, upperpipe.y + PipeVerticalDistance, 'pipe').setOrigin(0,0);
+  
+  upperpipe.body.velocity.x = -200; 
+  lowerpipe.body.velocity.x = -200; 
+}
   this.input.on('pointerdown', flap);
-  this.input.keyboard.on('keydown_SPACE', flap);
+  this.input.keyboard.on('keydown-SPACE', flap);
 }
 
 function update(time, delta){
