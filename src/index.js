@@ -30,10 +30,11 @@ this.load.image('pipe', 'assets/pipe.png');
 }
 
 const VELOCITY = 200; 
-
 let bird = null;
 let upperpipe = null; 
 let lowerpipe = null; 
+const PipeVerticalDistanceRange = [150, 250];
+let PipeVerticalDistance = Phaser.Math.Between(...PipeVerticalDistanceRange);
 const flapVelocity = 300; 
 const initialBirdPosition = {x: config.width/10, y:config.height/2, }
 
@@ -43,7 +44,7 @@ function create(){
   bird.body.gravity.y = 400; 
 
   upperpipe = this.add.sprite(400, 100, 'pipe').setOrigin(0,1); 
-  lowerpipe = this.add.sprite(400, upperpipe.y + 100, 'pipe').setOrigin(0,0); 
+  lowerpipe = this.add.sprite(400, upperpipe.y + PipeVerticalDistance, 'pipe').setOrigin(0,0); 
 
   this.input.on('pointerdown', flap);
   this.input.keyboard.on('keydown_SPACE', flap);
