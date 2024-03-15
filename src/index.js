@@ -1,6 +1,10 @@
 
 
 import Phaser from "phaser";
+import PlayScene from './scenes/PlayScene';
+
+
+
 
 //adjusts width and height of game
 const config = {
@@ -13,14 +17,12 @@ const config = {
     default:'arcade',
     arcade:{
       debug: true,
-    }
+    },
+    
   },
-  scene:{
-    preload,
-    create, 
-    update, 
-  }
+  scene:[PlayScene]
 }
+  
 
 //loading assets
 function preload(){
