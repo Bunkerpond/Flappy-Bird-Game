@@ -10,7 +10,10 @@ const config = {
   height: 600,
   physics:{
     //arcade physics plugin, manages physics simulation 
-    default:'arcade'
+    default:'arcade',
+    arcade:{
+      gravity: {y:200} 
+    }
   },
   scene:{
     preload,
@@ -26,6 +29,7 @@ this.load.image('bird', 'assets/bird.png');
 }
 
 let bird = null;
+let totaldelta = null; 
 
 function create(){
 //x-400
@@ -34,12 +38,19 @@ function create(){
   //this.add.image(config.width/2, config.height/2, 'sky'); <------ One way to do it but below is better
   this.add.image(0,0, 'sky').setOrigin(0);
   bird = this.physics.add.sprite(config.width/10, config.height/2, 'bird').setOrigin(0);
-  bird.body.gravity.y = 200; 
+  //bird.body.gravity.y = 200; 
 }
 
 //should be around 60 fps
 function update(time, delta){
-  console.log(bird.body.velocity.y);
+  //console.log(bird.body.velocity.y);
+  
+  totaldelta =+ delta; 
+
+  if (totaldelta < 1000){return;}
+  console.log(bird.body.velocity.y)
+  totaldelta = 0; 
+
 }
 
 new Phaser.Game(config);
