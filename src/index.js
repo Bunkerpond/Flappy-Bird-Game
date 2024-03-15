@@ -14,18 +14,21 @@ const config = {
   },
   scene:{
     preload,
-    create,
+    create, 
   }
 }
 
 //loading assets
 function preload(){
-debugger
+this.load.image('sky', 'assets/sky.png');
 }
 
 
 function create(){
-debugger
+//x-400
+//y-300
+//key of the image 
+  this.add.image(config.width/2, config.height/2, 'sky');
 }
 
 new Phaser.Game(config);
