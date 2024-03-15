@@ -32,12 +32,12 @@ this.load.image('bird', 'assets/bird.png');
 const VELOCITY = 200; 
 
 let bird = null;
-let flapVelocity = 300; 
-let totaldelta = null; 
+const flapVelocity = 300; 
+const initialBirdPosition = {x: config.width/10, y:config.height/2, }
 
 function create(){
   this.add.image(0,0, 'sky').setOrigin(0);
-  bird = this.physics.add.sprite(config.width/10, config.height/2, 'bird').setOrigin(0);//bird.body.gravity.y = 200; another way to do gravity
+  bird = this.physics.add.sprite(initialBirdPosition.x, initialBirdPosition.y, 'bird').setOrigin(0);//bird.body.gravity.y = 200; another way to do gravity
 
   this.input.on('pointerdown', flap);
 
@@ -46,7 +46,15 @@ function create(){
 }
 
 function update(time, delta){
-  
+  if(bird.y > config.height || bird.y < -bird.height){
+    restartBirdPosition();
+  }
+}
+
+function restartBirdPosition(){
+  bird.x= initialBirdPosition.x; 
+  bird.y= initialBirdPosition.y; 
+  bird.body.velocity.y = 0;
 }
 
 function flap(){
