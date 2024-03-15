@@ -12,7 +12,6 @@ const config = {
     //arcade physics plugin, manages physics simulation 
     default:'arcade',
     arcade:{
-      gravity: {y:400}, 
       debug: true,
     }
   },
@@ -27,22 +26,27 @@ const config = {
 function preload(){
 this.load.image('sky', 'assets/sky.png');
 this.load.image('bird', 'assets/bird.png');
+this.load.image('pipe', 'assets/pipe.png');
 }
 
 const VELOCITY = 200; 
 
 let bird = null;
+let upperpipe = null; 
+let lowerpipe = null; 
 const flapVelocity = 300; 
 const initialBirdPosition = {x: config.width/10, y:config.height/2, }
 
 function create(){
   this.add.image(0,0, 'sky').setOrigin(0);
   bird = this.physics.add.sprite(initialBirdPosition.x, initialBirdPosition.y, 'bird').setOrigin(0);//bird.body.gravity.y = 200; another way to do gravity
+  bird.body.gravity.y = 400; 
+
+  upperpipe = this.add.sprite(400, 100, 'pipe').setOrigin(0,1); 
+  lowerpipe = this.add.sprite(400, upperpipe.y + 100, 'pipe').setOrigin(0,0); 
 
   this.input.on('pointerdown', flap);
-
   this.input.keyboard.on('keydown_SPACE', flap);
-
 }
 
 function update(time, delta){
