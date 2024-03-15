@@ -12,7 +12,8 @@ const config = {
     //arcade physics plugin, manages physics simulation 
     default:'arcade',
     arcade:{
-      gravity: {y:200} 
+      //gravity: {y:200} 
+      debug: true,
     }
   },
   scene:{
@@ -28,29 +29,23 @@ this.load.image('sky', 'assets/sky.png');
 this.load.image('bird', 'assets/bird.png');
 }
 
+const VELOCITY = 200; 
+
 let bird = null;
 let totaldelta = null; 
 
 function create(){
-//x-400
-//y-300
-//key of the image 
-  //this.add.image(config.width/2, config.height/2, 'sky'); <------ One way to do it but below is better
   this.add.image(0,0, 'sky').setOrigin(0);
-  bird = this.physics.add.sprite(config.width/10, config.height/2, 'bird').setOrigin(0);
-  //bird.body.gravity.y = 200; 
+  bird = this.physics.add.sprite(config.width/10, config.height/2, 'bird').setOrigin(0);//bird.body.gravity.y = 200; another way to do gravity
+  bird.body.velocity.x= VELOCITY; 
 }
 
-//should be around 60 fps
 function update(time, delta){
-  //console.log(bird.body.velocity.y);
-  
-  totaldelta =+ delta; 
-
-  if (totaldelta < 1000){return;}
-  console.log(bird.body.velocity.y)
-  totaldelta = 0; 
-
+  if(bird.x >= config.width - bird.width){
+    bird.body.velocity.x= -VELOCITY;
+  }else if(bird.x<=0){
+    bird.body.velocity.x=VELOCITY;
+  }
 }
 
 new Phaser.Game(config);
