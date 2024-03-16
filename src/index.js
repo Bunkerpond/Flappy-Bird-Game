@@ -11,6 +11,12 @@ const SHARED_CONFIG = {
   height: HEIGHT, 
   startPosition: BIRD_POSITION,
 }
+
+const Scenes = [PreLoadScene, MenuScene, PlayScene];
+const createScene = Scene => new Scene(SHARED_CONFIG)
+const initScenes = () => Scenes.map((Scene) => new Scene(SHARED_CONFIG))
+
+
 //adjusts width and height of game
 const config = {
   //WebGL (Web graphics Library) JS Api for rendering 2d and 3d graphics 
@@ -23,7 +29,7 @@ const config = {
       debug: true,
     },  
   },
-  scene:[PreLoadScene, new MenuScene(SHARED_CONFIG), new PlayScene(SHARED_CONFIG)]
+  scene:initScenes()
 }
   
 new Phaser.Game(config);
