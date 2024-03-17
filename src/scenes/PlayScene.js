@@ -106,6 +106,9 @@ class PlayScene extends BaseScene {
         .setFlipX(true)
         .setScale(2.5)
         .setOrigin(0);
+
+        this.bird.setBodySize(this.bird.width, this.bird.height - 8);
+
         this.bird.body.gravity.y = 600;
         this.bird.setCollideWorldBounds(true);
     }
@@ -198,10 +201,10 @@ class PlayScene extends BaseScene {
   }
 
   increaseDifficulty(){
-    if(this.score === 1){
+    if(this.score === 10){
         this.currentDifficulty = 'normal';
     }
-    if (this.score === 3){
+    if (this.score === 25){
         this.currentDifficulty = 'hard';
     }
   }
