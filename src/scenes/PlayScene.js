@@ -1,3 +1,5 @@
+//to run and host game put npm run dev in terminal
+
 import BaseScene from './BaseScene';
 
 const PIPES_T0_RENDER = 4;
@@ -11,7 +13,6 @@ class PlayScene extends BaseScene {
     this.bird = null;
     this.pipes = null;
     this.isPause = false;
-
     this.pipeHoriztonalDistance = 0;
     this.flapVelocity = 300; 
 
@@ -204,7 +205,7 @@ class PlayScene extends BaseScene {
     if(this.score === 10){
         this.currentDifficulty = 'normal';
     }
-    if (this.score === 25){
+    if (this.score === 25 ){
         this.currentDifficulty = 'hard';
     }
   }
